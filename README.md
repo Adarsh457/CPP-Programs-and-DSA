@@ -1,5 +1,4 @@
 # patternPrinting
-
 Practice Question of Pattern Printing in CPP.
 
 1.->    1 2 3       
