@@ -75,7 +75,9 @@ int main()
              << "3. Add an element in the last.\n"
              << "4. Remove First element.\n"
              << "5. Remove Last element.\n"
-             << "6. To exit the code.";
+             << "6. Remove any element. \n"
+             << "7. Remove Duplicate. \n"
+             << "8. To exit the code.";
 
         cin >> num;
 
@@ -184,6 +186,99 @@ int main()
             break;
         }
         case 6:
+        {
+            int ele;
+            cout << "Enter the element to delete: ";
+            cin >> ele;
+
+            // Delete from beginning if head matches
+            while (head && head->data == ele)
+            {
+                Node *toDelete = head;
+                head = head->next;
+                delete toDelete;
+            }
+
+            // If list becomes empty
+            if (!head)
+            {
+                tail = nullptr;
+                cout << "All matching elements removed. List is now empty.\n";
+                break;
+            }
+
+            // Delete from middle or end
+            Node *prev = head;
+            Node *curr = head->next;
+
+            while (curr)
+            {
+                if (curr->data == ele)
+                {
+                    Node *toDelete = curr;
+                    prev->next = curr->next;
+
+                    if (curr == tail)
+                    {
+                        tail = prev;
+                    }
+
+                    curr = curr->next;
+                    delete toDelete;
+                }
+                else
+                {
+                    prev = curr;
+                    curr = curr->next;
+                }
+            }
+
+            cout << "Updated Linked List: ";
+            show(head);
+            break;
+        }
+        // Remove Duplicate Elements.
+        case 7:
+        {
+
+            if (!head)
+            {
+                cout << "LinkedList is Empty" << endl;
+                break;
+            }
+
+            Node *outer = head;
+
+            while (outer && outer->next)
+            {
+                Node *inner = outer;
+                while (inner->next)
+                {
+                    if (inner->next->data == outer->data)
+                    {
+                        Node *toDelete = inner->next;
+                        inner->next = inner->next->next;
+                        delete toDelete;
+
+                        if (inner->next == nullptr)
+                        {
+                            tail = inner;
+                        }
+                    }
+                    else
+                    {
+                        inner = inner->next;
+                    }
+                }
+                outer = outer->next;
+            }
+
+            cout << "Updated LinkedList (duplicates removed): ";
+            show(head);
+            break;
+        }
+
+        case 8:
         // Exit the Program.
             cout << "exit";
             return 0;
