@@ -77,7 +77,10 @@ int main()
              << "5. Remove Last element.\n"
              << "6. Remove any element. \n"
              << "7. Remove Duplicate. \n"
-             << "8. To exit the code.";
+             << "8. Remove Middle Element and Return Linked List after the Middle Node. \n"
+             << "9. Reverse Linked List.\n"
+             << "10 Remove The Middle Element and Return the Linked List."
+             << "11. To exit the code.";
 
         cin >> num;
 
@@ -278,7 +281,76 @@ int main()
             break;
         }
 
-        case 8:
+        // Remove the Middle Node of a Singly LinkedList.
+        case 8 : {
+            int counter=0;
+            temp = head;
+            while(temp){
+                counter++;
+                temp = temp->next;
+            }
+            int mid = (counter/2)+1, innerCount=0;
+
+            temp = head;
+            while(temp){
+                innerCount++;
+                if(innerCount==mid){
+                    head = temp;
+                    break;
+                }
+                temp = temp->next;
+            }
+
+            show(head);
+            break;
+        }
+
+        case 9 : {
+            // To Reverse a Linked List
+            temp = head;
+            Node* prev=NULL;
+            Node* front;
+            while(temp){
+                front = temp->next;
+                temp->next=prev;
+                prev = temp;
+                temp = front;
+            }
+            tail = head;
+            head = prev;
+            show(head);
+            break;
+        }
+
+        case 10 : {
+            // To Remove the Middle Node and return the whole LL.
+            int counter=0;
+            temp = head;
+            while(temp){
+                counter++;
+                temp = temp->next;
+            }
+            int mid = (counter/2)+1, innerCount=0;
+            Node* prev = NULL;
+            temp = head;
+            while(temp){
+                innerCount++;
+                if(innerCount==mid){
+                    Node* toDel = temp;
+                    prev->next=temp->next;
+                    delete toDel;
+                    break;
+                }
+                prev = temp;
+                temp = temp->next;
+            }
+
+            show(head);
+            break;
+
+        }
+
+        case 11:
         // Exit the Program.
             cout << "exit";
             return 0;
